@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">OfferAPISample</string>
+
+    <!--TODO : delete-->
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <!--Request Form String-->
+    <string name="offer_api_apikey">apikey</string>
+    <string name="offer_api_appid">appid</string>
+    <string name="offer_api_uid">uid</string>
+    <string name="offer_api_pub0">pub0</string>
+    <string name="offer_api_locale">locale</string>
+    <string name="offer_api_os_version">os_version</string>
+    <string name="offer_api_google_ad_id">google_ad_id</string>
+    <string name="offer_api_google_ad_id_limited_tracking_enabled">google_ad_id_limited_tracking_enabled</string>
+    <string name="offer_api_ip">ip</string>
+    <string name="offer_api_request">Offer API Request</string>
+
+    <!--Test value-->
+    <string name="test_uid">spiderman</string>
+    <string name="test_apikey">1c915e3b5d42d05136185030892fbb846c278927</string>
+    <string name="test_appid">2070</string>
+    <string name="test_locale">DE</string>
+    <string name="test_offer_type">112</string>
+    <string name="test_ip">109.235.143.113</string>
+
+    <!--Response-->
+    <string name="offer_response_code">CODE : </string>
+    <string name="offer_response_message">MSG : </string>
+
+
+</resources>
