@@ -1,12 +1,14 @@
 package com.fyber.offerapisample.ui.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -18,6 +20,7 @@ import com.fyber.offerapisample.controller.TaskCompleteListener;
 import com.fyber.offerapisample.model.Offer;
 import com.fyber.offerapisample.model.OfferAPIRequest;
 import com.fyber.offerapisample.model.OfferAPIResponse;
+import com.fyber.offerapisample.ui.activity.OfferDetailActivity;
 import com.fyber.offerapisample.ui.adapter.OfferAPIResultAdapter;
 
 import org.springframework.http.HttpStatus;
@@ -51,6 +54,14 @@ public class OfferAPIResultFragment extends Fragment{
         offerResultLv = (ListView)rootView.findViewById(R.id.offer_result_list);
         offerAPIResultAdapter = new OfferAPIResultAdapter(inflater.getContext(),offers);
         offerResultLv.setAdapter(offerAPIResultAdapter);
+        offerResultLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(offers!=null){
+                    showOfferDetail(offers.get(i));
+                }
+            }
+        });
 
         offerResponseCode = (TextView)rootView.findViewById(R.id.offer_response_code);
         offerResponseMsg = (TextView)rootView.findViewById(R.id.offer_response_msg);
@@ -161,5 +172,17 @@ public class OfferAPIResultFragment extends Fragment{
             offerNextBtn.setEnabled(true);
         }
 
+    }
+
+    private void showOfferDetail(Offer offer){
+        Intent intent = new Intent(getContext(), OfferDetailActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString(getString(R.string.offer_api_response_offer_title), offer.getTitle());
+        extras.putString(getString(R.string.offer_api_response_offer_teaser), offer.getTeaser());
+        extras.putString(getString(R.string.offer_api_response_offer_payout), String.valueOf(offer.getPayout()));
+        extras.putString(getString(R.string.offer_api_response_offer_thumbnail), offer.getThumbnail().getHires());
+
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

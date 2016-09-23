@@ -84,8 +84,8 @@ public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
 
                 //Get response but it is not valid
                 OfferAPIResponse offerAPINonValidResponse = new OfferAPIResponse();
-                offerAPINonValidResponse.setCode(context.getResources().getString(R.string.offer_response_no_valid_txt));
-                offerAPINonValidResponse.setMessage(context.getResources().getString(R.string.offer_response_no_valid_txt));
+                offerAPINonValidResponse.setCode(context.getString(R.string.offer_response_no_valid_txt));
+                offerAPINonValidResponse.setMessage(context.getString(R.string.offer_response_no_valid_txt));
                 offerAPINonValidResponse.setHttpCode(response.getStatusCode());
                 return offerAPINonValidResponse;
             }
@@ -96,8 +96,8 @@ public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
             OfferAPIResponse offerAPIBadResponse = new OfferAPIResponse();
             try {
                 JSONObject errorResponse = new JSONObject(e.getResponseBodyAsString());
-                offerAPIBadResponse.setCode(errorResponse.getString(context.getResources().getString(R.string.offer_api_response_code)));
-                offerAPIBadResponse.setMessage(errorResponse.getString(context.getResources().getString(R.string.offer_api_response_msg)));
+                offerAPIBadResponse.setCode(errorResponse.getString(context.getString(R.string.offer_api_response_code)));
+                offerAPIBadResponse.setMessage(errorResponse.getString(context.getString(R.string.offer_api_response_msg)));
                 offerAPIBadResponse.setHttpCode(e.getStatusCode());
             } catch (JSONException e1) {
                 e1.printStackTrace();
@@ -130,17 +130,17 @@ public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
 
         //Initialize Fiber Mobile Offer API parameters
         OfferAPIBuilder offerAPIBuilder = OfferAPIBuilder.init(OFFER_URL, offerAPIRequest.getAPIKEY())
-                .setParam(context.getResources().getString(R.string.offer_api_appid), String.valueOf(offerAPIRequest.getAppid()))
-                .setParam(context.getResources().getString(R.string.offer_api_uid), offerAPIRequest.getUid())
-                .setParam(context.getResources().getString(R.string.offer_api_ip), offerAPIRequest.getIp())
-                .setParam(context.getResources().getString(R.string.offer_api_locale), offerAPIRequest.getLocale())
-                .setParam(context.getResources().getString(R.string.offer_api_google_ad_id),offerAPIRequest.getGoogle_ad_id())
-                .setParam(context.getResources().getString(R.string.offer_api_google_ad_id_limited_tracking_enabled), String.valueOf(offerAPIRequest.isGoogle_ad_id_limited_tracking_enabled()))
-                .setParam(context.getResources().getString(R.string.offer_api_page), String.valueOf(offerAPIRequest.getPage()))
-                .setParam(context.getResources().getString(R.string.offer_api_timestamp), String.valueOf(offerAPIRequest.getTimestamp()))
-                .setParam(context.getResources().getString(R.string.offer_api_offer_types), offerAPIRequest.getOffer_type())
-                .setParam(context.getResources().getString(R.string.offer_api_pub0), offerAPIRequest.getPub0())
-                .setParam(context.getResources().getString(R.string.offer_api_os_version), offerAPIRequest.getOs_version());
+                .setParam(context.getString(R.string.offer_api_appid), String.valueOf(offerAPIRequest.getAppid()))
+                .setParam(context.getString(R.string.offer_api_uid), offerAPIRequest.getUid())
+                .setParam(context.getString(R.string.offer_api_ip), offerAPIRequest.getIp())
+                .setParam(context.getString(R.string.offer_api_locale), offerAPIRequest.getLocale())
+                .setParam(context.getString(R.string.offer_api_google_ad_id),offerAPIRequest.getGoogle_ad_id())
+                .setParam(context.getString(R.string.offer_api_google_ad_id_limited_tracking_enabled), String.valueOf(offerAPIRequest.isGoogle_ad_id_limited_tracking_enabled()))
+                .setParam(context.getString(R.string.offer_api_page), String.valueOf(offerAPIRequest.getPage()))
+                .setParam(context.getString(R.string.offer_api_timestamp), String.valueOf(offerAPIRequest.getTimestamp()))
+                .setParam(context.getString(R.string.offer_api_offer_types), offerAPIRequest.getOffer_type())
+                .setParam(context.getString(R.string.offer_api_pub0), offerAPIRequest.getPub0())
+                .setParam(context.getString(R.string.offer_api_os_version), offerAPIRequest.getOs_version());
 
         return offerAPIBuilder;
     }

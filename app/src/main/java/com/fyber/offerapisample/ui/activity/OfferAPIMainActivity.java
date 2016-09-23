@@ -17,7 +17,7 @@ import com.fyber.offerapisample.ui.fragment.OfferAPIResultFragment;
  * @see OfferAPIResultFragment
  */
 @VisibleForTesting
-public class OfferAPIFormActivity extends AppCompatActivity {
+public class OfferAPIMainActivity extends AppCompatActivity {
 
     private EditText uidEt;
     private EditText apikeyEt;
@@ -28,7 +28,7 @@ public class OfferAPIFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offer_api_form);
+        setContentView(R.layout.activity_offer_api_main);
         initUI();
     }
 
@@ -39,28 +39,28 @@ public class OfferAPIFormActivity extends AppCompatActivity {
         pub0Et = (EditText)findViewById(R.id.offer_api_pup0);
         apiRequestBtn = (Button)findViewById(R.id.offer_api_request_btn);
 
-        uidEt.setText(getResources().getString(R.string.test_uid));
+        uidEt.setText(getString(R.string.test_uid));
         uidEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uidEt.setError(null);
             }
         });
-        apikeyEt.setText(getResources().getString(R.string.test_apikey));
+        apikeyEt.setText(getString(R.string.test_apikey));
         apikeyEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 apikeyEt.setError(null);
             }
         });
-        appidEt.setText(getResources().getString(R.string.test_appid));
+        appidEt.setText(getString(R.string.test_appid));
         appidEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 appidEt.setError(null);
             }
         });
-        pub0Et.setText(getResources().getString(R.string.test_pub0));
+        pub0Et.setText(getString(R.string.test_pub0));
         apiRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,19 +72,19 @@ public class OfferAPIFormActivity extends AppCompatActivity {
     private void executeOfferAPIGetRequest(){
 
         if(!isUidValid(uidEt.getText().toString())){
-            uidEt.setError(getResources().getString(R.string.error_invalid_uid));
+            uidEt.setError(getString(R.string.error_invalid_uid));
             uidEt.requestFocus();
             return ;
         }
 
         if(!isApiKeyValid(apikeyEt.getText().toString())){
-            apikeyEt.setError(getResources().getString(R.string.error_invalid_apikey));
+            apikeyEt.setError(getString(R.string.error_invalid_apikey));
             apikeyEt.requestFocus();
             return ;
         }
 
         if (!isAppIdValid(appidEt.getText().toString())){
-            appidEt.setError(getResources().getString(R.string.error_invalid_appid));
+            appidEt.setError(getString(R.string.error_invalid_appid));
             appidEt.requestFocus();
             return ;
         }

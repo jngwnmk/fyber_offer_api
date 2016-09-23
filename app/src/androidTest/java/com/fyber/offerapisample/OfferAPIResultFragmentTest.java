@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.fyber.offerapisample.model.OfferAPIResponse;
-import com.fyber.offerapisample.ui.activity.OfferAPIFormActivity;
+import com.fyber.offerapisample.ui.activity.OfferAPIMainActivity;
 import com.fyber.offerapisample.ui.fragment.OfferAPIResultFragment;
 
 import org.junit.Rule;
@@ -25,6 +25,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.allOf;
@@ -42,7 +43,7 @@ public class OfferAPIResultFragmentTest {
     private static String ERROR_INVALID_HASHKEY = "ERROR_INVALID_HASHKEY";
     private static String ERROR_INVALID_APPID   = "ERROR_INVALID_APPID";
     @Rule
-    public ActivityTestRule<OfferAPIFormActivity> offerAPIFormActivityRule = new ActivityTestRule(OfferAPIFormActivity.class);
+    public ActivityTestRule<OfferAPIMainActivity> offerAPIMainActivityRule = new ActivityTestRule(OfferAPIMainActivity.class);
 
     /**
      * Test inital UI status within OfferAPIResultFragment
@@ -66,13 +67,13 @@ public class OfferAPIResultFragmentTest {
         SystemClock.sleep(500);
 
         onView(withId(R.id.offer_result_list)).check(matches(isDisplayed()));
-        onView(withText(offerAPIFormActivityRule.getActivity().getResources().getString(R.string.offer_response_code_txt)+OK))
+        onView(withText(offerAPIMainActivityRule.getActivity().getString(R.string.offer_response_code_txt)+OK))
                 .check(matches(isDisplayed()));
 
     }
 
     /**
-     * Test a situation when the Hashkey is invalid by requesting API with invalid apikey.
+     * Test a situation when the hashkey is invalid by requesting API with invalid apikey.
      */
     @Test
     public void testResultInvalidHashCode(){
@@ -84,7 +85,7 @@ public class OfferAPIResultFragmentTest {
         Espresso.closeSoftKeyboard();
         SystemClock.sleep(500);
 
-        onView(withText(offerAPIFormActivityRule.getActivity().getResources().getString(R.string.offer_response_code_txt)+ERROR_INVALID_HASHKEY))
+        onView(withText(offerAPIMainActivityRule.getActivity().getString(R.string.offer_response_code_txt) + ERROR_INVALID_HASHKEY))
                 .check(matches(isDisplayed()));
 
         checkDefaultPagingBtnStatus();
@@ -103,7 +104,7 @@ public class OfferAPIResultFragmentTest {
         Espresso.closeSoftKeyboard();
         SystemClock.sleep(500);
 
-        onView(withText(offerAPIFormActivityRule.getActivity().getResources().getString(R.string.offer_response_code_txt)+ERROR_INVALID_APPID))
+        onView(withText(offerAPIMainActivityRule.getActivity().getString(R.string.offer_response_code_txt)+ERROR_INVALID_APPID))
                 .check(matches(isDisplayed()));
         checkDefaultPagingBtnStatus();
     }
@@ -144,6 +145,51 @@ public class OfferAPIResultFragmentTest {
         onData(allOf(is(instanceOf(OfferAPIResponse.class)), withId(R.id.offer_thumbnail)));
     }
 
+    /**
+     * Check offer item click action works well.
+     */
+    @Test
+    public void testOfferItemSelectAction(){
+        openDetailActivity();
+    }
+
+
+    /**
+     * Check default Ui of detail activity is shown well.
+     */
+    @Test
+    public void testInitUIOfDetailActivity() {
+
+        openDetailActivity();
+        SystemClock.sleep(500);
+        onView(withId(R.id.detail_title)).check(matches(isDisplayed()));
+        onView(withId(R.id.detail_teaser)).check(matches(isDisplayed()));
+        onView(withId(R.id.detail_payout)).check(matches(isDisplayed()));
+        onView(withId(R.id.detail_thumbnail)).check(matches(isDisplayed()));
+        onView(withId(R.id.close_btn)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * Check close detail activity click action works well.
+     */
+    @Test
+    public void testOfferDetailCloseAction(){
+        openDetailActivity();
+        SystemClock.sleep(500);
+        onView(withId(R.id.close_btn)).perform(click());
+
+    }
+
+    private void openDetailActivity(){
+        showOfferAPIResultFragment();
+
+        onView(withId(R.id.offer_api_request_btn)).perform(click());
+        Espresso.closeSoftKeyboard();
+        SystemClock.sleep(500);
+
+        onView(withId(R.id.offer_result_list)).check(matches(isDisplayed()));
+        onData(anything()).inAdapterView(withId(R.id.offer_result_list)).atPosition(0).perform(click());
+    }
 
     private void checkDefaultPagingBtnStatus(){
         onView(withId(R.id.offer_before_btn))
@@ -157,8 +203,8 @@ public class OfferAPIResultFragmentTest {
 
     //Open Offer API Result List Fragment
     private OfferAPIResultFragment showOfferAPIResultFragment(){
-        FragmentTransaction ft = offerAPIFormActivityRule.getActivity().getSupportFragmentManager().beginTransaction();
-        OfferAPIResultFragment resultFragment = (OfferAPIResultFragment)offerAPIFormActivityRule.getActivity().getSupportFragmentManager().findFragmentById(R.id.offer_api_result_fragment);
+        FragmentTransaction ft = offerAPIMainActivityRule.getActivity().getSupportFragmentManager().beginTransaction();
+        OfferAPIResultFragment resultFragment = (OfferAPIResultFragment)offerAPIMainActivityRule.getActivity().getSupportFragmentManager().findFragmentById(R.id.offer_api_result_fragment);
         ft.replace(R.id.offer_api_result_fragment, resultFragment);
         ft.commit();
         return resultFragment;

@@ -4,7 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.fyber.offerapisample.ui.activity.OfferAPIFormActivity;
+import com.fyber.offerapisample.ui.activity.OfferAPIMainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,15 +24,15 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class OfferAPIFormActivityTest {
+public class OfferAPIMainActivityTest {
     @Rule
-    public ActivityTestRule<OfferAPIFormActivity> offerAPIFormActivityRule = new ActivityTestRule(OfferAPIFormActivity.class);
+    public ActivityTestRule<OfferAPIMainActivity> offerAPIMainActivityRule = new ActivityTestRule(OfferAPIMainActivity.class);
 
     /**
      * Test text related UI with default value.
      */
     @Test
-    public void testInitUItexts() {
+    public void testInitUI() {
 
         onView(withId(R.id.offer_api_uid)).check(matches(isDisplayed()));
         onView(withId(R.id.offer_api_apikey)).check(matches(isDisplayed()));
