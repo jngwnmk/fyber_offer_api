@@ -1,5 +1,6 @@
 package com.fyber.offerapisample.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.ArrayList;
@@ -9,72 +10,95 @@ import java.util.ArrayList;
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Offer{
+    @JsonProperty("title")
     private String title;
-    private long offer_id;
+
+    @JsonProperty("offer_id")
+    private long offerId;
+
+    @JsonProperty("teaser")
     private String teaser;
-    private String required_actions;
+
+    @JsonProperty("required_actions")
+    private String requiredActions;
+
+    @JsonProperty("link")
     private String link;
-    private ArrayList<OfferType> offer_types;
+
+    @JsonProperty("offer_types")
+    private ArrayList<OfferType> offerTypes;
+
+    @JsonProperty("thumbnail")
     private Thumbnail thumbnail;
+
+    @JsonProperty("payout")
     private int payout;
-    private TimeToPayout time_to_payout;
-    private String store_id;
+
+    @JsonProperty("time_to_payout")
+    private TimeToPayout timeToPayout;
+
+    @JsonProperty("store_id")
+    private String storeId;
 
     public Offer(){
         this.title = "";
-        this.offer_id = 0L;
+        this.offerId = 0L;
         this.teaser = "";
-        this.required_actions = "";
+        this.requiredActions = "";
         this.link = "";
-        this.offer_types = new ArrayList<>();
+        this.offerTypes = new ArrayList<>();
         this.thumbnail = new Thumbnail();
         this.payout = 0;
-        this.time_to_payout = new TimeToPayout();
-        this.store_id  = "";
+        this.timeToPayout = new TimeToPayout();
+        this.storeId  = "";
     }
 
-    public Offer(String title, long offer_id, String teaser, String required_actions, String link, ArrayList<OfferType> offer_types, Thumbnail thumbnail, int payout, TimeToPayout time_to_payout, String store_id) {
+    public Offer(String title, long offerId, String teaser, String requiredActions, String link, ArrayList<OfferType> offerTypes, Thumbnail thumbnail, int payout, TimeToPayout timeToPayout, String storeId) {
 
         this.title = title;
-        this.offer_id = offer_id;
+        this.offerId = offerId;
         this.teaser = teaser;
-        this.required_actions = required_actions;
+        this.requiredActions = requiredActions;
         this.link = link;
-        this.offer_types = offer_types;
+        this.offerTypes = offerTypes;
         this.thumbnail = thumbnail;
         this.payout = payout;
-        this.time_to_payout = time_to_payout;
-        this.store_id = store_id;
+        this.timeToPayout = timeToPayout;
+        this.storeId = storeId;
     }
 
     private static class OfferType{
-        private int offer_type_id;
+
+        @JsonProperty("offer_type_id")
+        private int offerTypeId;
+
+        @JsonProperty("readable")
         private String readable;
 
         public OfferType(){
-            this.offer_type_id = 0;
+            this.offerTypeId = 0;
             this.readable = "";
         }
 
-        public OfferType(int offer_type_id, String readable) {
-            this.offer_type_id = offer_type_id;
+        public OfferType(int offerTypeId, String readable) {
+            this.offerTypeId = offerTypeId;
             this.readable = readable;
         }
 
         @Override
         public String toString() {
             return "{" +
-                    "offer_type_id:" + offer_type_id +
+                    "offerTypeId:" + offerTypeId +
                     ", readable:'" + readable + '\'' +
                     '}';
         }
 
-        public int getOffer_type_id() {
-            return offer_type_id;
+        public int getOfferTypeId() {
+            return offerTypeId;
         }
 
-        public void setOffer_type_id(int offer_type_id) {
-            this.offer_type_id = offer_type_id;
+        public void setOfferTypeId(int offerTypeId) {
+            this.offerTypeId = offerTypeId;
         }
 
         public String getReadable() {
@@ -89,7 +113,11 @@ public class Offer{
     }
 
     public static class Thumbnail{
+
+        @JsonProperty("lowres")
         private String lowres;
+
+        @JsonProperty("hires")
         private String hires;
 
         public Thumbnail(){
@@ -128,7 +156,11 @@ public class Offer{
     }
 
     private static class TimeToPayout{
+
+        @JsonProperty("amount")
         private long amount;
+
+        @JsonProperty("readable")
         private String readable;
 
 
@@ -171,39 +203,15 @@ public class Offer{
     public String toString() {
         return "{" +
                 "title:'" + title + '\'' +
-                ", offer_id:" + offer_id +
+                ", offerId:" + offerId +
                 ", teaser:'" + teaser + '\'' +
-                ", required_actions:'" + required_actions + '\'' +
+                ", requiredActions:'" + requiredActions + '\'' +
                 ", link:'" + link + '\'' +
-                ", offer_types:" + offer_types +
+                ", offerTypes:" + offerTypes +
                 ", thumbnail:" + thumbnail +
                 ", payout:" + payout +
-                ", time_to_payout:" + time_to_payout +
+                ", timeToPayout:" + timeToPayout +
                 '}';
-    }
-
-    public ArrayList<OfferType> getOffer_types() {
-        return offer_types;
-    }
-
-    public void setOffer_types(ArrayList<OfferType> offer_types) {
-        this.offer_types = offer_types;
-    }
-
-    public TimeToPayout getTime_to_payout() {
-        return time_to_payout;
-    }
-
-    public void setTime_to_payout(TimeToPayout time_to_payout) {
-        this.time_to_payout = time_to_payout;
-    }
-
-    public String getStore_id() {
-        return store_id;
-    }
-
-    public void setStore_id(String store_id) {
-        this.store_id = store_id;
     }
 
     public String getTitle() {
@@ -214,12 +222,12 @@ public class Offer{
         this.title = title;
     }
 
-    public long getOffer_id() {
-        return offer_id;
+    public long getOfferId() {
+        return offerId;
     }
 
-    public void setOffer_id(long offer_id) {
-        this.offer_id = offer_id;
+    public void setOfferId(long offerId) {
+        this.offerId = offerId;
     }
 
     public String getTeaser() {
@@ -230,12 +238,12 @@ public class Offer{
         this.teaser = teaser;
     }
 
-    public String getRequired_actions() {
-        return required_actions;
+    public String getRequiredActions() {
+        return requiredActions;
     }
 
-    public void setRequired_actions(String required_actions) {
-        this.required_actions = required_actions;
+    public void setRequiredActions(String requiredActions) {
+        this.requiredActions = requiredActions;
     }
 
     public String getLink() {
@@ -246,12 +254,12 @@ public class Offer{
         this.link = link;
     }
 
-    public ArrayList<OfferType> getOfferType() {
-        return offer_types;
+    public ArrayList<OfferType> getOfferTypes() {
+        return offerTypes;
     }
 
-    public void setOfferType(ArrayList<OfferType> offerType) {
-        this.offer_types = offerType;
+    public void setOfferTypes(ArrayList<OfferType> offerTypes) {
+        this.offerTypes = offerTypes;
     }
 
     public Thumbnail getThumbnail() {
@@ -271,10 +279,18 @@ public class Offer{
     }
 
     public TimeToPayout getTimeToPayout() {
-        return time_to_payout;
+        return timeToPayout;
     }
 
-    public void setTimeToPayout(TimeToPayout time_to_payout) {
-        this.time_to_payout = time_to_payout;
+    public void setTimeToPayout(TimeToPayout timeToPayout) {
+        this.timeToPayout = timeToPayout;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 }

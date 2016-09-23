@@ -62,7 +62,8 @@ public class OfferAPIResultAdapter extends BaseAdapter{
         Offer offer = (Offer)getItem(position);
         offerWrapper.getTitleTv().setText(offer.getTitle());
         offerWrapper.getTeaserTv().setText(offer.getTeaser());
-        offerWrapper.getPayoutTv().setText("Payout : " + offer.getPayout());
+        offerWrapper.getPayoutTv().setText(context.getResources().getString(R.string.offer_response_item_payout)
+                                            + offer.getPayout());
 
         if(offer.getThumbnail().getHires()!=null && !"".equals(offer.getThumbnail().getHires()))
             Picasso.with(context).load(offer.getThumbnail().getHires())

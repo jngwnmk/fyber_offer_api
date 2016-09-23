@@ -1,6 +1,7 @@
 package com.fyber.offerapisample.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +12,12 @@ import com.fyber.offerapisample.ui.fragment.OfferAPIResultFragment;
 
 /**
  * Created by wonmook on 2016. 9. 22..
+ * Main Activity to get param from EditText and show Offer API result to {@link OfferAPIResultFragment}
+ *
+ * @see OfferAPIResultFragment
  */
+@VisibleForTesting
 public class OfferAPIFormActivity extends AppCompatActivity {
-
-    private final static String UID = "spiderman";
-    private final static String APIKEY = "1c915e3b5d42d05136185030892fbb846c278927";
-    private final static String APPID = "2070";
-    private final static String PUB0 = "campaign2";
-    private final static String LOCALE = "DE";
-    private final static String IP  = "109.235.143.113";
-    private final static String OFFER_TYPE = "112";
 
     private EditText uidEt;
     private EditText apikeyEt;
@@ -40,12 +37,30 @@ public class OfferAPIFormActivity extends AppCompatActivity {
         apikeyEt = (EditText)findViewById(R.id.offer_api_apikey);
         appidEt = (EditText)findViewById(R.id.offer_api_appid);
         pub0Et = (EditText)findViewById(R.id.offer_api_pup0);
-        apiRequestBtn = (Button)findViewById(R.id.offer_api_request_button);
+        apiRequestBtn = (Button)findViewById(R.id.offer_api_request_btn);
 
-        uidEt.setText(UID);
-        apikeyEt.setText(APIKEY);
-        appidEt.setText(APPID);
-        pub0Et.setText(PUB0);
+        uidEt.setText(getResources().getString(R.string.test_uid));
+        uidEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uidEt.setError(null);
+            }
+        });
+        apikeyEt.setText(getResources().getString(R.string.test_apikey));
+        apikeyEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                apikeyEt.setError(null);
+            }
+        });
+        appidEt.setText(getResources().getString(R.string.test_appid));
+        appidEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                appidEt.setError(null);
+            }
+        });
+        pub0Et.setText(getResources().getString(R.string.test_pub0));
         apiRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,12 +71,42 @@ public class OfferAPIFormActivity extends AppCompatActivity {
 
     private void executeOfferAPIGetRequest(){
 
+        if(!isUidValid(uidEt.getText().toString())){
+            uidEt.setError(getResources().getString(R.string.error_invalid_uid));
+            uidEt.requestFocus();
+            return ;
+        }
+
+        if(!isApiKeyValid(apikeyEt.getText().toString())){
+            apikeyEt.setError(getResources().getString(R.string.error_invalid_apikey));
+            apikeyEt.requestFocus();
+            return ;
+        }
+
+        if (!isAppIdValid(appidEt.getText().toString())){
+            appidEt.setError(getResources().getString(R.string.error_invalid_appid));
+            appidEt.requestFocus();
+            return ;
+        }
+
         OfferAPIResultFragment resultFragment = (OfferAPIResultFragment)getSupportFragmentManager().findFragmentById(R.id.offer_api_result_fragment);
         if(resultFragment !=null  && resultFragment.isInLayout())
         {
             resultFragment.showOfferAPIResult(uidEt.getText().toString(), apikeyEt.getText().toString(),appidEt.getText().toString(),pub0Et.getText().toString(),1);
         }
 
+    }
+
+    private boolean isUidValid(String uid) {
+        return uid!=null && uid.length() > 0;
+    }
+
+    private boolean isApiKeyValid(String apikey){
+        return apikey!=null && apikey.length() > 0;
+    }
+
+    private boolean isAppIdValid(String appid){
+        return appid!=null && appid.length()>0;
     }
 
 }

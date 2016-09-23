@@ -17,13 +17,13 @@
                 android:id="@+id/offer_response_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/offer_response_code"
+                android:text="@string/offer_response_code_txt"
                 />
             <TextView
                 android:id="@+id/offer_response_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/offer_response_message"
+                android:text="@string/offer_response_message_txt"
 
                 />
         </LinearLayout>

@@ -10,18 +10,18 @@ import static org.junit.Assert.*;
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+public class OfferAPIUnitTest {
 
+    /**
+     * All parameters are configured based on http://developer.fyber.com/content/current/android/offer-wall/offer-api/
+     * To check whether OfferAPIBuilder create correct hashkey.
+     */
     @Test
-    public void OfferAPIBuilderTest(){
+    public void OfferAPIBuilderHashTest(){
         String OFFER_URL = "http://api.fyber.com/feed/v1/offers.json";
         String API_KEY = "e95a21621a1865bcbae3bee89c4d4f84";
         OfferAPIRequest offerAPIRequest = new OfferAPIRequest();
-        offerAPIRequest.setAppid(157);
+        offerAPIRequest.setAppid("157");
         offerAPIRequest.setUid("player1");
         offerAPIRequest.setIp("212.45.111.17");
         offerAPIRequest.setLocale("de");
@@ -43,6 +43,7 @@ public class ExampleUnitTest {
                 .setParam("timestamp",String.valueOf(offerAPIRequest.getTimestamp()));
 
         assertTrue(offerAPIBuilder.buildURI().toString().contains("hashkey=7a2b1604c03d46eec1ecd4a686787b75dd693c4d"));
-
     }
+
+
 }

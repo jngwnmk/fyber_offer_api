@@ -16,17 +16,29 @@
     </string>
 
 
-    <!--Request Form String-->
+    <!--Offer API Request Params key-->
     <string name="offer_api_apikey">apikey</string>
+    <string name="offer_api_format">format</string>
     <string name="offer_api_appid">appid</string>
     <string name="offer_api_uid">uid</string>
-    <string name="offer_api_pub0">pub0</string>
     <string name="offer_api_locale">locale</string>
     <string name="offer_api_os_version">os_version</string>
+    <string name="offer_api_timestamp">timestamp</string>
+    <string name="offer_api_hashkey">hashkey</string>
     <string name="offer_api_google_ad_id">google_ad_id</string>
     <string name="offer_api_google_ad_id_limited_tracking_enabled">google_ad_id_limited_tracking_enabled</string>
     <string name="offer_api_ip">ip</string>
+    <string name="offer_api_pub0">pub0</string>
+    <string name="offer_api_page">page</string>
+    <string name="offer_api_offer_types">offer_types</string>
+    <string name="offer_api_ps_time">ps_time</string>
+    <string name="offer_api_device">device</string>
+
     <string name="offer_api_request">Offer API Request</string>
+
+    <!--Offer API Response JSON Key-->
+    <string name="offer_api_response_code">code</string>
+    <string name="offer_api_response_msg">message</string>
 
     <!--Test value-->
     <string name="test_uid">spiderman</string>
@@ -35,10 +47,17 @@
     <string name="test_locale">DE</string>
     <string name="test_offer_type">112</string>
     <string name="test_ip">109.235.143.113</string>
+    <string name="test_pub0">campaign2</string>
 
-    <!--Response-->
-    <string name="offer_response_code">CODE : </string>
-    <string name="offer_response_message">MSG : </string>
+    <!--Response Text-->
+    <string name="offer_response_code_txt">CODE :</string>
+    <string name="offer_response_message_txt">MSG :</string>
+    <string name="offer_response_no_valid_txt">No Valid Response</string>
+    <string name="offer_response_item_payout">Payout :</string>
 
+    <!--Param input error-->
+    <string name="error_invalid_uid">Invalid uid</string>
+    <string name="error_invalid_apikey">Invalid apikey</string>
+    <string name="error_invalid_appid">Invalid appid</string>
 
 </resources>

@@ -20,6 +20,8 @@ import com.fyber.offerapisample.model.OfferAPIRequest;
 import com.fyber.offerapisample.model.OfferAPIResponse;
 import com.fyber.offerapisample.ui.adapter.OfferAPIResultAdapter;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +30,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class OfferAPIResultFragment extends Fragment{
 
+    private static final int INVALID_PAGE = -1;
     private ListView offerResultLv;
     private OfferAPIResultAdapter offerAPIResultAdapter;
     private ArrayList<Offer> offers = new ArrayList<>();
@@ -37,7 +40,7 @@ public class OfferAPIResultFragment extends Fragment{
     private ImageButton offerNextBtn;
     private ProgressDialog pDialog;
     private int currentPage;
-    private int totalPage;
+    private static String DEBUGTAG = OfferAPIResultFragment.class.getSimpleName();
 
 
     @Override
@@ -55,25 +58,25 @@ public class OfferAPIResultFragment extends Fragment{
         offerBeforeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uid = ((EditText)getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
-                String apikey = ((EditText)getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
-                String appid = ((EditText)getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
-                String pub0 = ((EditText)getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
-                int page = currentPage-1;
-                showOfferAPIResult(uid,apikey,appid,pub0,page);
+                String uid = ((EditText) getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
+                String apikey = ((EditText) getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
+                String appid = ((EditText) getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
+                String pub0 = ((EditText) getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
+                int page = currentPage - 1;
+                showOfferAPIResult(uid, apikey, appid, pub0, page);
             }
         });
 
         offerNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uid = ((EditText)getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
-                String apikey = ((EditText)getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
-                String appid = ((EditText)getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
-                String pub0 = ((EditText)getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
+                String uid = ((EditText) getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
+                String apikey = ((EditText) getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
+                String appid = ((EditText) getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
+                String pub0 = ((EditText) getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
 
-                int page = currentPage+1;
-                showOfferAPIResult(uid,apikey,appid,pub0,page);
+                int page = currentPage + 1;
+                showOfferAPIResult(uid, apikey, appid, pub0, page);
             }
         });
 
@@ -85,6 +88,7 @@ public class OfferAPIResultFragment extends Fragment{
         return rootView;
     }
 
+    //Request with params entered in UI form and default system values.
     public void showOfferAPIResult(String uid, String apikey, String appid, String pub0, int page){
         currentPage = page;
         offers.clear();
@@ -108,16 +112,15 @@ public class OfferAPIResultFragment extends Fragment{
         offerAPIRequest.setOffer_type(getString(R.string.test_offer_type));
         offerAPIRequest.setPub0(pub0);
 
-
         OfferRequestTask offerRequestTask = new OfferRequestTask(getContext(), offerAPIRequest, new TaskCompleteListener() {
             @Override
             public void onTaskCompleted(Object object) {
 
                 if (object!=null){
-                    Log.d("OfferAPI", object.toString());
+                    Log.d(DEBUGTAG, object.toString());
                     final OfferAPIResponse offerAPIResponse = (OfferAPIResponse) object;
-                    offerResponseCode.setText(getResources().getString(R.string.offer_response_code) +offerAPIResponse.getCode());
-                    offerResponseMsg.setText(getResources().getString(R.string.offer_response_message) + offerAPIResponse.getMessage());
+                    offerResponseCode.setText(getResources().getString(R.string.offer_response_code_txt) +offerAPIResponse.getCode());
+                    offerResponseMsg.setText(getResources().getString(R.string.offer_response_message_txt) + offerAPIResponse.getMessage());
                     offers.addAll(offerAPIResponse.getOffers());
                     getActivity().runOnUiThread(new Runnable() {
 
@@ -125,7 +128,11 @@ public class OfferAPIResultFragment extends Fragment{
                         public void run() {
                             offerAPIResultAdapter.notifyDataSetChanged();
                             pDialog.dismiss();
-                            updatePagingBtnStatus(offerAPIResponse.getPages());
+                            if(!offerAPIResponse.getHttpCode().equals(HttpStatus.OK)){
+                                updatePagingBtnStatus(INVALID_PAGE);
+                            } else {
+                                updatePagingBtnStatus(offerAPIResponse.getPages());
+                            }
                         }
                     });
                 }
@@ -135,16 +142,22 @@ public class OfferAPIResultFragment extends Fragment{
         offerRequestTask.execute();
     }
 
+    //Update Paging Button Status according to the current page and total page of offers
     private void updatePagingBtnStatus(int totalPage){
-        if(currentPage==1){
+
+        if(totalPage==1 || totalPage==INVALID_PAGE){
+            offerBeforeBtn.setEnabled(false);
+            offerNextBtn.setEnabled(false);
+        } else if(totalPage!=1 && currentPage==1){
             offerBeforeBtn.setEnabled(false);
             offerNextBtn.setEnabled(true);
-        } else if(totalPage==currentPage){
+        } else if(totalPage!=1 && totalPage==currentPage){
             offerBeforeBtn.setEnabled(true);
             offerNextBtn.setEnabled(false);
         } else {
             offerBeforeBtn.setEnabled(true);
             offerNextBtn.setEnabled(true);
         }
+
     }
 }

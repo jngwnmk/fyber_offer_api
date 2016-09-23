@@ -1,6 +1,9 @@
 package com.fyber.offerapisample.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +14,29 @@ import java.util.List;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class OfferAPIResponse {
 
+    private HttpStatus httpCode;
+
+    @JsonProperty("code")
     private String code;
+
+    @JsonProperty("message")
     private String message;
+
+    @JsonProperty("count")
     private int count;
+
+    @JsonProperty("pages")
     private int pages;
+
+    @JsonProperty("information")
     private Information information;
+
+    @JsonProperty("offers")
     private List<Offer> offers;
 
+
     public OfferAPIResponse(){
+        this.httpCode = null;
         this.code = "";
         this.message = "";
         this.count = 0;
@@ -27,7 +45,8 @@ public class OfferAPIResponse {
         this.offers= new ArrayList<>();
     }
 
-    public OfferAPIResponse(String code, String message, int count, int pages, Information information, ArrayList<Offer> offers) {
+    public OfferAPIResponse(HttpStatus httpCode ,String code, String message, int count, int pages, Information information, ArrayList<Offer> offers) {
+        this.httpCode = httpCode;
         this.code = code;
         this.message = message;
         this.count = count;
@@ -38,77 +57,91 @@ public class OfferAPIResponse {
 
     @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
     private static class Information{
-        private String app_name;
-        private int appid;
-        private String virtual_currency;
-        private boolean virtual_currency_sale_enabled;
+
+        @JsonProperty("app_name")
+        private String appName;
+
+        @JsonProperty("appid")
+        private int appId;
+
+        @JsonProperty("virtual_currency")
+        private String virtualCurrency;
+
+        @JsonProperty("virtual_currency_sale_enabled")
+        private boolean virtualCurrencySaleEnabled;
+
+        @JsonProperty("country")
         private String country;
+
+        @JsonProperty("language")
         private String language;
-        private String support_url;
+
+        @JsonProperty("support_url")
+        private String supportUrl;
 
         public Information(){
-            this.app_name = "";
-            this.appid = 0;
-            this.virtual_currency = "";
-            this.virtual_currency_sale_enabled = false;
+            this.appName = "";
+            this.appId = 0;
+            this.virtualCurrency = "";
+            this.virtualCurrencySaleEnabled = false;
             this.country = "";
             this.language = "";
-            this.support_url = "";
+            this.supportUrl = "";
         }
 
-        public Information(String app_name, int appid, String virtual_currency, boolean virtual_currency_sale_enabled, String country, String language, String support_url) {
-            this.app_name = app_name;
-            this.appid = appid;
-            this.virtual_currency = virtual_currency;
-            this.virtual_currency_sale_enabled = virtual_currency_sale_enabled;
+        public Information(String appName, int appId, String virtualCurrency, boolean virtualCurrencySaleEnabled, String country, String language, String supportUrl) {
+            this.appName = appName;
+            this.appId = appId;
+            this.virtualCurrency = virtualCurrency;
+            this.virtualCurrencySaleEnabled = virtualCurrencySaleEnabled;
             this.country = country;
             this.language = language;
-            this.support_url = support_url;
+            this.supportUrl = supportUrl;
         }
 
         @Override
         public String toString() {
             return "{" +
-                    "app_name:'" + app_name + '\'' +
-                    ", appid:" + appid +
-                    ", virtual_currency:'" + virtual_currency + '\'' +
-                    ", virtual_currency_sale_enabled:" + virtual_currency_sale_enabled +
+                    "appName:'" + appName + '\'' +
+                    ", appId:" + appId +
+                    ", virtualCurrency:'" + virtualCurrency + '\'' +
+                    ", virtualCurrencySaleEnabled:" + virtualCurrencySaleEnabled +
                     ", country:'" + country + '\'' +
                     ", language:'" + language + '\'' +
-                    ", support_url:'" + support_url + '\'' +
+                    ", supportUrl:'" + supportUrl + '\'' +
                     '}';
         }
 
-        public String getApp_name() {
-            return app_name;
+        public String getAppName() {
+            return appName;
         }
 
-        public void setApp_name(String app_name) {
-            this.app_name = app_name;
+        public void setAppName(String appName) {
+            this.appName = appName;
         }
 
-        public int getAppid() {
-            return appid;
+        public int getAppId() {
+            return appId;
         }
 
-        public void setAppid(int appid) {
-            this.appid = appid;
+        public void setAppId(int appId) {
+            this.appId = appId;
         }
 
-        public boolean isVirtual_currency_sale_enabled() {
-            return virtual_currency_sale_enabled;
+        public boolean isVirtualCurrencySaleEnabled() {
+            return virtualCurrencySaleEnabled;
         }
 
-        public void setVirtual_currency_sale_enabled(boolean virtual_currency_sale_enabled) {
-            this.virtual_currency_sale_enabled = virtual_currency_sale_enabled;
+        public void setVirtualCurrencySaleEnabled(boolean virtualCurrencySaleEnabled) {
+            this.virtualCurrencySaleEnabled = virtualCurrencySaleEnabled;
         }
 
-        public String getVirtual_currency() {
-            return virtual_currency;
+        public String getVirtualCurrency() {
+            return virtualCurrency;
         }
 
-        public void setVirtual_currency(String virtual_currency) {
-            this.virtual_currency = virtual_currency;
+        public void setVirtualCurrency(String virtualCurrency) {
+            this.virtualCurrency = virtualCurrency;
         }
 
         public String getCountry() {
@@ -127,12 +160,12 @@ public class OfferAPIResponse {
             this.language = language;
         }
 
-        public String getSupport_url() {
-            return support_url;
+        public String getSupportUrl() {
+            return supportUrl;
         }
 
-        public void setSupport_url(String support_url) {
-            this.support_url = support_url;
+        public void setSupportUrl(String supportUrl) {
+            this.supportUrl = supportUrl;
         }
     }
 
@@ -146,6 +179,14 @@ public class OfferAPIResponse {
                 ", information:" + information +
                 ", offers:" + offers +
                 '}';
+    }
+
+    public HttpStatus getHttpCode() {
+        return httpCode;
+    }
+
+    public void setHttpCode(HttpStatus httpCode) {
+        this.httpCode = httpCode;
     }
 
     public String getCode() {

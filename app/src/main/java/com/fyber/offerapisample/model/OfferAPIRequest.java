@@ -18,9 +18,10 @@ package com.fyber.offerapisample.model;
  *   locale: ‘DE’
  *   ip: ‘109.235.143.113’
  *   API Key: 1c915e3b5d42d05136185030892fbb846c278927
+ *
+ * See detail on http://developer.fyber.com/content/current/android/offer-wall/offer-api/
  */
 public class OfferAPIRequest {
-    public final static String format = "json";
     private String appid;
     private String uid;
     private String ip;
@@ -38,10 +39,6 @@ public class OfferAPIRequest {
     private String device;
 
     private String APIKEY;
-
-    public static String getFormat() {
-        return format;
-    }
 
     public String getAppid() {
         return appid;

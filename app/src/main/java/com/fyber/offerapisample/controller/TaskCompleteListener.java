@@ -1,7 +1,7 @@
 package com.fyber.offerapisample.controller;
 
 /**
- * Created by wonmook on 2015-03-15.
+ * Interface used for callback of Fyber Offer API Request
  */
 public interface TaskCompleteListener {
     void onTaskCompleted(Object object);
