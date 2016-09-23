@@ -18,7 +18,10 @@ challenge
 
 Params to be used
 format: json
-appid: Application ID, provided as simple data   uid: User ID, provided as simple data   device_id: use Android advertising identifier   locale: provided as simple data
+appid: Application ID, provided as simple data   
+uid: User ID, provided as simple data   
+device_id: use Android advertising identifier   
+locale: provided as simple data
 ip: provided as simple data
 offer_types: 112
 
