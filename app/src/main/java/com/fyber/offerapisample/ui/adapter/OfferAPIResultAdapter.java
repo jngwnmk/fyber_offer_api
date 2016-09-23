@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 /**
  * Created by wonmook on 2016. 9. 22..
+ * ListView Adapter to show each offer on {@link com.fyber.offerapisample.ui.fragment.OfferAPIResultFragment}
  */
 public class OfferAPIResultAdapter extends BaseAdapter{
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by wonmook on 2016. 9. 22..
+ * A model class for Offer API response
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class OfferAPIResponse {

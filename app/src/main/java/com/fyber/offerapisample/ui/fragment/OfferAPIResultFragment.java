@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by wonmook on 2016. 9. 22..
+ * A Fragment showing Offer API response as a form of list
+ * Enable to navigate page with buttons.
  */
 public class OfferAPIResultFragment extends Fragment{
 
