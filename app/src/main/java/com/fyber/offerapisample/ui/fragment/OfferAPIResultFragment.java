@@ -88,7 +88,7 @@ public class OfferAPIResultFragment extends Fragment{
         offerNextBtn.setEnabled(false);
 
         pDialog = new ProgressDialog(this.getActivity());
-        pDialog.setMessage("Loading....");
+        pDialog.setMessage(getString(R.string.app_loading_msg));
         return rootView;
     }
 
