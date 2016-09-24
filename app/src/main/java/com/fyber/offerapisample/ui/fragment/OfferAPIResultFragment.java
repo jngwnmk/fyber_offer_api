@@ -31,10 +31,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by wonmook on 2016. 9. 22..
  * A Fragment showing Offer API response as a form of list
- * Enable to navigate page with buttons.
+ * Enable to navigate pages with buttons.
  */
 public class OfferAPIResultFragment extends Fragment{
 
+    private static String DEBUGTAG = OfferAPIResultFragment.class.getSimpleName();
     private static final int INVALID_PAGE = -1;
     private ListView offerResultLv;
     private OfferAPIResultAdapter offerAPIResultAdapter;
@@ -45,7 +46,6 @@ public class OfferAPIResultFragment extends Fragment{
     private ImageButton offerNextBtn;
     private ProgressDialog pDialog;
     private int currentPage;
-    private static String DEBUGTAG = OfferAPIResultFragment.class.getSimpleName();
 
 
     @Override
@@ -71,25 +71,16 @@ public class OfferAPIResultFragment extends Fragment{
         offerBeforeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uid = ((EditText) getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
-                String apikey = ((EditText) getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
-                String appid = ((EditText) getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
-                String pub0 = ((EditText) getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
                 int page = currentPage - 1;
-                showOfferAPIResult(uid, apikey, appid, pub0, page);
+                movePage(page);
             }
         });
 
         offerNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uid = ((EditText) getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
-                String apikey = ((EditText) getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
-                String appid = ((EditText) getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
-                String pub0 = ((EditText) getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
-
                 int page = currentPage + 1;
-                showOfferAPIResult(uid, apikey, appid, pub0, page);
+                movePage(page);
             }
         });
 
@@ -132,8 +123,12 @@ public class OfferAPIResultFragment extends Fragment{
                 if (object!=null){
                     Log.d(DEBUGTAG, object.toString());
                     final OfferAPIResponse offerAPIResponse = (OfferAPIResponse) object;
+
+                    //Show response result code and message
                     offerResponseCode.setText(getResources().getString(R.string.offer_response_code_txt) +offerAPIResponse.getCode());
                     offerResponseMsg.setText(getResources().getString(R.string.offer_response_message_txt) + offerAPIResponse.getMessage());
+
+                    //Update offer list and notify to adapter to update listview
                     offers.addAll(offerAPIResponse.getOffers());
                     getActivity().runOnUiThread(new Runnable() {
 
@@ -141,6 +136,8 @@ public class OfferAPIResultFragment extends Fragment{
                         public void run() {
                             offerAPIResultAdapter.notifyDataSetChanged();
                             pDialog.dismiss();
+
+                            //If the status of response is not OK, paging buttons are set to be disabled.
                             if(!offerAPIResponse.getHttpCode().equals(HttpStatus.OK)){
                                 updatePagingBtnStatus(INVALID_PAGE);
                             } else {
@@ -174,6 +171,16 @@ public class OfferAPIResultFragment extends Fragment{
 
     }
 
+    //Move to specific page
+    private void movePage(int page){
+        String uid = ((EditText) getActivity().findViewById(R.id.offer_api_uid)).getText().toString();
+        String apikey = ((EditText) getActivity().findViewById(R.id.offer_api_apikey)).getText().toString();
+        String appid = ((EditText) getActivity().findViewById(R.id.offer_api_appid)).getText().toString();
+        String pub0 = ((EditText) getActivity().findViewById(R.id.offer_api_pup0)).getText().toString();
+        showOfferAPIResult(uid, apikey, appid, pub0, page);
+    }
+
+    //Open Offer activity showing detail information
     private void showOfferDetail(Offer offer){
         Intent intent = new Intent(getContext(), OfferDetailActivity.class);
         Bundle extras = new Bundle();

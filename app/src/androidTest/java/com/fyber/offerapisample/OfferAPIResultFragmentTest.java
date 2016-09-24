@@ -79,7 +79,7 @@ public class OfferAPIResultFragmentTest {
     public void testResultInvalidHashCode(){
         showOfferAPIResultFragment();
 
-        onView(allOf(withClassName(endsWith("EditText")), withId(R.id.offer_api_apikey))).perform(replaceText("1111"));
+        onView(allOf(withClassName(endsWith("EditText")), withId(R.id.offer_api_apikey))).perform(replaceText("-1"));
 
         onView(withId(R.id.offer_api_request_btn)).perform(click());
         Espresso.closeSoftKeyboard();
@@ -92,13 +92,13 @@ public class OfferAPIResultFragmentTest {
     }
 
     /**
-     * Test a situation when the Appid is invalid by requesting API with invalid appid.
+     * Test a situation when the appid is invalid by requesting API with invalid appid.
      */
     @Test
     public void testResultInvalidAppIdCode(){
         showOfferAPIResultFragment();
 
-        onView(allOf(withClassName(endsWith("EditText")), withId(R.id.offer_api_appid))).perform(replaceText("1111"));
+        onView(allOf(withClassName(endsWith("EditText")), withId(R.id.offer_api_appid))).perform(replaceText("-1"));
 
         onView(withId(R.id.offer_api_request_btn)).perform(click());
         Espresso.closeSoftKeyboard();

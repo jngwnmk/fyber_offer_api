@@ -46,7 +46,7 @@ public class OfferAPIBuilder {
     }
 
     /**
-     * Calculate hashkey based on parameters and compose full URI with hashkey
+     * Calculate hashkey with given parameters and compose of full URI with hashkey
      * @return composed URI with calculated hashkey
      */
     public URI buildURI() {

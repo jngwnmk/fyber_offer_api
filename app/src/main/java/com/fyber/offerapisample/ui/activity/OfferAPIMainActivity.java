@@ -12,7 +12,7 @@ import com.fyber.offerapisample.ui.fragment.OfferAPIResultFragment;
 
 /**
  * Created by wonmook on 2016. 9. 22..
- * Main Activity to get param from EditText and show Offer API result to {@link OfferAPIResultFragment}
+ * Main Activity to get parameters from EditText and show Offer API result to {@link OfferAPIResultFragment}
  *
  * @see OfferAPIResultFragment
  */
@@ -39,6 +39,7 @@ public class OfferAPIMainActivity extends AppCompatActivity {
         pub0Et = (EditText)findViewById(R.id.offer_api_pup0);
         apiRequestBtn = (Button)findViewById(R.id.offer_api_request_btn);
 
+        //Set with default parameters given in the Challenge
         uidEt.setText(getString(R.string.test_uid));
         uidEt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,10 @@ public class OfferAPIMainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Execute Offer API Get Request Method
+     * It checks whether uid, apikey, and appid are empty. If so, it shows error message.
+     */
     private void executeOfferAPIGetRequest(){
 
         if(!isUidValid(uidEt.getText().toString())){

@@ -38,17 +38,18 @@ import java.net.URI;
  */
 public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
 
+    private static String DEBUGTAG = OfferRequestTask.class.getSimpleName();
 
-    //For the purpose of test, using hard-coded BASE URL for Mobile Offer API
+    //For the purpose of challenge, using hard-coded base URL for Mobile Offer API with JSON format
     private static String OFFER_URL = "http://api.fyber.com/feed/v1/offers.json";
 
+    //A special security parameter to the HTTP response header to ensure the integrity and validity of the response.
     private static final String HASH_SIGNATURE = "X-Sponsorpay-Response-Signature";
 
     private OfferAPIRequest offerAPIRequest= null;
     private TaskCompleteListener taskCompleteListener = null;
     private Context context;
 
-    private static String DEBUGTAG = OfferRequestTask.class.getSimpleName();
 
     public OfferRequestTask(Context context, OfferAPIRequest offerAPIRequest, TaskCompleteListener taskCompleteListener){
         this.context = context;
@@ -60,16 +61,15 @@ public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
     protected OfferAPIResponse doInBackground(Void... params) {
 
         try{
-            //Initialize RestTemlate object
+            //Initialize RestTemplate object
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
-            //Build complete URI by calculating hashkey
+            //Build complete URI with calculating hashkey
             URI offerAPIURI = getOfferAPIBuilderwithParam().buildURI();
             Log.d(DEBUGTAG,offerAPIURI.toString());
 
-            //Make the request to the API passing the params and the authentication hash
             //Get the result from the response
             ResponseEntity<String> response = restTemplate.getForEntity(offerAPIURI, String.class);
 
@@ -115,6 +115,7 @@ public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
         taskCompleteListener.onTaskCompleted(response);
     }
 
+    //Initialize OfferAPIBuilder with given parameters
     private OfferAPIBuilder getOfferAPIBuilderwithParam(){
         //Setting parameter related to Google advertising ID
         try {
@@ -134,7 +135,7 @@ public class OfferRequestTask extends AsyncTask<Void, Void, OfferAPIResponse>{
                 .setParam(context.getString(R.string.offer_api_uid), offerAPIRequest.getUid())
                 .setParam(context.getString(R.string.offer_api_ip), offerAPIRequest.getIp())
                 .setParam(context.getString(R.string.offer_api_locale), offerAPIRequest.getLocale())
-                .setParam(context.getString(R.string.offer_api_google_ad_id),offerAPIRequest.getGoogle_ad_id())
+                .setParam(context.getString(R.string.offer_api_google_ad_id), offerAPIRequest.getGoogle_ad_id())
                 .setParam(context.getString(R.string.offer_api_google_ad_id_limited_tracking_enabled), String.valueOf(offerAPIRequest.isGoogle_ad_id_limited_tracking_enabled()))
                 .setParam(context.getString(R.string.offer_api_page), String.valueOf(offerAPIRequest.getPage()))
                 .setParam(context.getString(R.string.offer_api_timestamp), String.valueOf(offerAPIRequest.getTimestamp()))

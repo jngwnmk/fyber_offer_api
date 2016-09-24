@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 
 /**
  * Created by wonmook on 2016. 9. 24..
- * Show Detail View of a offer.
+ * A Activity shows detail information of a offer.
  * For the purpose of demo, it only shows title, teaser, payout, and thumbnail.
  * But it could be improved to show more information about the offer.
  */

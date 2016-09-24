@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by wonmook on 2016. 9. 22..
+ * A model class for Offer information
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Offer{

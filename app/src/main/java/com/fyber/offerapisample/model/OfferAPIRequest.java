@@ -2,17 +2,27 @@ package com.fyber.offerapisample.model;
 
 /**
  * Created by wonmook on 2016. 9. 22..
- * A Model class to be used in Offer Mobile API
- * Description)
- *   format: json
- *   appid: Application ID, provided as simple data
- *   uid: User ID, provided as simple data
- *   device_id: use Android advertising identifier
- *   locale: provided as simple data
- *   ip: provided as simple data
- *   offer_types: 112
+ * A Model class to be used in Offer Mobile API request
  *
- * Example)
+ * Description)
+ *    appid	: The Fyber Application ID for your application.
+ *    uid	: The unique User ID, as used internally in your application.
+ *    locale : The locale used for the offer descriptions.
+ *    os_version : Current version of the users Operating System, retrieve via android.os.Build.VERSION.RELEASE
+ *    timestamp	: The time the request is being sent by the device.
+ *    hashkey :	The hash that signs the whole request.
+ *    google_ad_id : The Google advertising ID obtained via AdvertisingIdClient.getAdvertisingIdInfo(mContext).getId()
+ *    google_ad_id_limited_tracking_enabled	: Retrieves whether the user has limit ad tracking enabled or not.
+ *                                            Obtained via AdvertisingIdClient.getAdvertisingIdInfo(mContext).isLimitAdTrackingEnabled()
+ *    ip (optional): The IP address of the device of your user. If the parameter is not given, the IP address of the request will be used.
+ *    pub0 (optional): Custom parameters.
+ *    page (optional): The page of the response set that you are requesting.
+ *    offer_types (optional): Filter the results based on type of offer.
+ *    ps_time (optional): The creation date of the user’s account in your game in Unix Timestamp format.
+ *    device (optional): The type of device. Can be tablet for iOS or Android tablets or phone.
+ *             If set, this will result in special tablet/phone offers being shown. For iPods, please send phone
+ *
+ * Sample Data Example)
  *   appid: 2070
  *   uid: spiderman
  *   locale: ‘DE’
